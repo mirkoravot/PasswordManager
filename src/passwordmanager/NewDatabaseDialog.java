@@ -76,6 +76,7 @@ public class NewDatabaseDialog extends javax.swing.JDialog {
         jLabelFilename = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("New Database");
 
         jButtonCancel.setMnemonic('C');
         jButtonCancel.setText("Cancel");

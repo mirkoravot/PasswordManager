@@ -82,6 +82,7 @@ public class OpenDatabaseDialog extends javax.swing.JDialog {
         jButtonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Database Key");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/22x22/actions/kgpg_key1_kgpg.png"))); // NOI18N

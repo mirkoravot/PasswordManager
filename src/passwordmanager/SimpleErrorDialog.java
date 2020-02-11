@@ -39,6 +39,7 @@ public class SimpleErrorDialog extends javax.swing.JDialog {
         jTextPaneMessage = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Error");
 
         jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTitle.setText("Error");

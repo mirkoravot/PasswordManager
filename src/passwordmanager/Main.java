@@ -125,7 +125,7 @@ public class Main extends javax.swing.JFrame {
     }
     
     
-    private void open() {
+    private int open() {
         JFileChooser fc = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(DATABASE_EXTENSION + " files", DATABASE_EXTENSION);
         fc.setFileFilter(filter);
@@ -138,6 +138,7 @@ public class Main extends javax.swing.JFrame {
             open(file.getAbsolutePath());
         } else { 
         }
+        return returnVal;
         
     }
 
@@ -276,6 +277,7 @@ public class Main extends javax.swing.JFrame {
         this.database = new Database();
 
         JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Create new database file");
         FileNameExtensionFilter filter = new FileNameExtensionFilter(DATABASE_EXTENSION + " files", DATABASE_EXTENSION);
         fc.setFileFilter(filter);
         
@@ -356,13 +358,14 @@ public class Main extends javax.swing.JFrame {
         setTableModel(tableModel);
         this.jTableAccount.getTableHeader().setReorderingAllowed(false);
         
+        this.hasMemory(false);
         if (settings.containsKey(Settings.K_LAST_FILE)) {
             open(settings.getProperty(Settings.K_LAST_FILE));
         } else {
-            
         }
-        this.hasMemory(false);
         
+        if (database == null)
+            this.newDocument();
     }
     
     private void setTableModel(AccountTableModel model) {
