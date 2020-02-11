@@ -23,6 +23,7 @@ public class ChildDialog extends javax.swing.JDialog {
      */
     public ChildDialog(Main parent, boolean modal) {
         super(parent, modal);
+        console = parent;
         initComponents();
     }
 

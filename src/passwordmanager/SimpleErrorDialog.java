@@ -18,6 +18,8 @@ public class SimpleErrorDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.jTextPaneMessage.setText(message);
+        this.getRootPane().setDefaultButton(this.jButtonChiudi);
+        this.jButtonChiudi.requestFocus();
     }
 
     /**
@@ -31,7 +33,7 @@ public class SimpleErrorDialog extends javax.swing.JDialog {
 
         jLabelTitle = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        jButtonChiudi = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPaneMessage = new javax.swing.JTextPane();
@@ -41,10 +43,10 @@ public class SimpleErrorDialog extends javax.swing.JDialog {
         jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTitle.setText("Error");
 
-        jButton1.setText("Chiudi");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonChiudi.setText("Close");
+        jButtonChiudi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonChiudiActionPerformed(evt);
             }
         });
 
@@ -62,8 +64,8 @@ public class SimpleErrorDialog extends javax.swing.JDialog {
                     .addComponent(jScrollPane1)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 319, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addGap(0, 321, Short.MAX_VALUE)
+                        .addComponent(jButtonChiudi))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabelTitle)
@@ -82,21 +84,21 @@ public class SimpleErrorDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jButtonChiudi)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonChiudiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChiudiActionPerformed
             this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonChiudiActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonChiudi;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

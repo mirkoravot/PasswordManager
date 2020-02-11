@@ -18,15 +18,15 @@ import org.w3c.dom.NodeList;
  *
  * @author mirko.ravot
  */
-public class AccountTableModel extends AbstractTableModel {
+public class PasswordHistoryTableModel extends AbstractTableModel {
     
     List<Element> list;
-    private String[] columnNames = {"Folder", "Name", "Username", "URL", "Expire", "PH"};
+    private String[] columnNames = {"Date", "Password"};
     
     PMTreeCellRenderer cellRenderer;
     
     
-    public AccountTableModel(List<Element> list) {
+    public PasswordHistoryTableModel(List<Element> list) {
         this.list = list;
         cellRenderer = new PMTreeCellRenderer();
 //        cellRenderer = new 
@@ -65,41 +65,19 @@ public class AccountTableModel extends AbstractTableModel {
         Object temp = null;
         try {
             Element element = (Element)list.get(rowIndex);
-            Element parent = (Element)element.getParentNode();
             if (columnIndex == 0) {
-                return parent.getAttribute("name");
+                try {
+                    Calendar c = Calendar.getInstance();
+                    c.setTimeInMillis(Long.parseLong(element.getAttribute("date")));
+                    return c.getTime().toString();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
             if (columnIndex == 1) {
-                return element.getAttribute("name");
+                return element.getAttribute("password");
             }
-            if (columnIndex == 2) {
-                return element.getAttribute("username");
-            }
-            if (columnIndex == 3) {
-                return element.getAttribute("url");
-            }
-            if (columnIndex == 4) {
-                try {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(Long.parseLong(element.getAttribute("expire")));
-                    temp = new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());   
                     
-                    Calendar now = Calendar.getInstance();
-                    long timediff = calendar.getTimeInMillis() - now.getTimeInMillis();
-                    
-                    int days = (int)(timediff / (1000 * 24 * 3600 ));
-                    temp +=  " ("+days+" days)";
-                    
-
-                } catch (Exception ex) {
-                    temp = "";
-                }
-                    
-            }
-            if (columnIndex == 5) {
-                NodeList nlist = element.getElementsByTagName("PasswordChange");
-                return "" + nlist.getLength();
-            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

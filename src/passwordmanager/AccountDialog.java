@@ -84,7 +84,6 @@ public class AccountDialog extends ChildDialog {
         jCheckBoxShow = new javax.swing.JCheckBox();
         jTextFieldPasswordClear = new javax.swing.JTextField();
         jButtonClipboard = new javax.swing.JButton();
-        jButtonGenerate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaNote = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
@@ -94,8 +93,10 @@ public class AccountDialog extends ChildDialog {
         jLabelURL = new javax.swing.JLabel();
         jTextFieldURL = new javax.swing.JTextField();
         jButtonOpen = new javax.swing.JButton();
+        jButtonManage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Account");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Account");
@@ -121,6 +122,7 @@ public class AccountDialog extends ChildDialog {
 
         jLabel3.setText("Username");
 
+        jPasswordField1.setEditable(false);
         jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jPasswordField1KeyReleased(evt);
@@ -150,13 +152,6 @@ public class AccountDialog extends ChildDialog {
             }
         });
 
-        jButtonGenerate.setText("Generate");
-        jButtonGenerate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGenerateActionPerformed(evt);
-            }
-        });
-
         jTextAreaNote.setBackground(new java.awt.Color(255, 255, 204));
         jTextAreaNote.setColumns(20);
         jTextAreaNote.setRows(5);
@@ -179,6 +174,13 @@ public class AccountDialog extends ChildDialog {
             }
         });
 
+        jButtonManage.setText("Manage");
+        jButtonManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonManageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,7 +195,7 @@ public class AccountDialog extends ChildDialog {
                         .addComponent(jButtonOk)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancel))
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -217,12 +219,11 @@ public class AccountDialog extends ChildDialog {
                                     .addComponent(jTextFieldPasswordClear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                                     .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButtonGenerate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButtonClipboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabelDateFormat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButtonOpen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(jButtonOpen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonManage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -248,10 +249,11 @@ public class AccountDialog extends ChildDialog {
                     .addComponent(jButtonOpen)
                     .addComponent(jLabelURL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jButtonGenerate))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4))
+                    .addComponent(jButtonManage, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jCheckBoxShow)
@@ -301,12 +303,12 @@ public class AccountDialog extends ChildDialog {
 
     private void jCheckBoxShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxShowActionPerformed
 
-        showClear();
+        showClean();
 
     }//GEN-LAST:event_jCheckBoxShowActionPerformed
 
     private void jPasswordField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyReleased
-        showClear();
+        showClean();
     }//GEN-LAST:event_jPasswordField1KeyReleased
 
     private void jTextFieldPasswordClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPasswordClearActionPerformed
@@ -322,14 +324,6 @@ public class AccountDialog extends ChildDialog {
         clipboard.setContents(selection, selection);        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonClipboardActionPerformed
 
-    private void jButtonGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerateActionPerformed
-
-        this.jPasswordField1.setText(PasswordGenerator.generateRandomPassword(10));
-        this.showClear();
-        
-
-    }//GEN-LAST:event_jButtonGenerateActionPerformed
-
     private void jButtonOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenActionPerformed
 
         
@@ -342,8 +336,20 @@ public class AccountDialog extends ChildDialog {
 
     }//GEN-LAST:event_jButtonOpenActionPerformed
 
-    private void showClear() {
+    private void jButtonManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageActionPerformed
+
+        AccountPasswordDialog dialog = new AccountPasswordDialog(this.console, this.accountElement, true);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+        if (dialog.getReturnVal() == ChildDialog.RETURN_OK) {
+            this.showClean();
+        }
+    }//GEN-LAST:event_jButtonManageActionPerformed
+
+    private void showClean() {
+        this.jPasswordField1.setText(accountElement.getAttribute("password"));
         if (this.jCheckBoxShow.isSelected()) {
+            
             this.jTextFieldPasswordClear.setText(new String(this.jPasswordField1.getPassword()));
             this.jTextFieldPasswordClear.setEditable(true);
         } else {
@@ -357,7 +363,7 @@ public class AccountDialog extends ChildDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonClipboard;
-    private javax.swing.JButton jButtonGenerate;
+    private javax.swing.JButton jButtonManage;
     private javax.swing.JButton jButtonOk;
     private javax.swing.JButton jButtonOpen;
     private javax.swing.JCheckBox jCheckBoxShow;

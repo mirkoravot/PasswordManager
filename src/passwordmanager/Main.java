@@ -8,6 +8,9 @@ package passwordmanager;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -311,6 +314,12 @@ public class Main extends javax.swing.JFrame {
 
     
     private void initPost() {
+        try {
+            //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception ex) {
+            
+        }
+        this.jToggleButtonShowClean.setSelected(false);
         settings = Settings.getSettings();
         
         
@@ -479,6 +488,8 @@ public class Main extends javax.swing.JFrame {
         jButtonTBCopy = new javax.swing.JButton();
         jButtonTBPaste = new javax.swing.JButton();
         jButtonTBDelete = new javax.swing.JButton();
+        jButtonTBAddFolder = new javax.swing.JButton();
+        jButtonTBAddAccount = new javax.swing.JButton();
         jToolBarView = new javax.swing.JToolBar();
         jButtonTBViewExpiredPassword = new javax.swing.JButton();
         jToolBarVoid = new javax.swing.JToolBar();
@@ -486,6 +497,8 @@ public class Main extends javax.swing.JFrame {
         jPanelStatusbar = new javax.swing.JPanel();
         jLabelStatus = new javax.swing.JLabel();
         jTextFieldPassword = new javax.swing.JTextField();
+        jButtonPasswordCopy = new javax.swing.JButton();
+        jToggleButtonShowClean = new javax.swing.JToggleButton();
         jPanelCenter = new javax.swing.JPanel();
         jSplitPaneMain = new javax.swing.JSplitPane();
         jPanelTree = new javax.swing.JPanel();
@@ -690,6 +703,32 @@ public class Main extends javax.swing.JFrame {
         });
         jToolBarEdit.add(jButtonTBDelete);
 
+        jButtonTBAddFolder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/22x22/actions/folder_new.png"))); // NOI18N
+        jButtonTBAddFolder.setToolTipText("Cut");
+        jButtonTBAddFolder.setEnabled(false);
+        jButtonTBAddFolder.setFocusable(false);
+        jButtonTBAddFolder.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonTBAddFolder.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonTBAddFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTBAddFolderActionPerformed(evt);
+            }
+        });
+        jToolBarEdit.add(jButtonTBAddFolder);
+
+        jButtonTBAddAccount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/22x22/filesystems/user_identity_add.png"))); // NOI18N
+        jButtonTBAddAccount.setToolTipText("Cut");
+        jButtonTBAddAccount.setEnabled(false);
+        jButtonTBAddAccount.setFocusable(false);
+        jButtonTBAddAccount.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonTBAddAccount.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonTBAddAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTBAddAccountActionPerformed(evt);
+            }
+        });
+        jToolBarEdit.add(jButtonTBAddAccount);
+
         jToolBarMain.add(jToolBarEdit);
 
         jToolBarView.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -728,22 +767,49 @@ public class Main extends javax.swing.JFrame {
         jTextFieldPassword.setEditable(false);
         jTextFieldPassword.setBackground(new java.awt.Color(255, 255, 255));
 
+        jButtonPasswordCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/22x22/actions/edit_copy.png"))); // NOI18N
+        jButtonPasswordCopy.setToolTipText("Copy");
+        jButtonPasswordCopy.setEnabled(false);
+        jButtonPasswordCopy.setFocusable(false);
+        jButtonPasswordCopy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonPasswordCopy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonPasswordCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPasswordCopyActionPerformed(evt);
+            }
+        });
+
+        jToggleButtonShowClean.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/22x22/apps/applixware.png"))); // NOI18N
+        jToggleButtonShowClean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonShowCleanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelStatusbarLayout = new javax.swing.GroupLayout(jPanelStatusbar);
         jPanelStatusbar.setLayout(jPanelStatusbarLayout);
         jPanelStatusbarLayout.setHorizontalGroup(
             jPanelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelStatusbarLayout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(jLabelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                .addComponent(jLabelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButtonShowClean, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonPasswordCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelStatusbarLayout.setVerticalGroup(
             jPanelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButtonPasswordCopy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanelStatusbarLayout.createSequentialGroup()
-                .addGap(1, 1, 1)
+                .addComponent(jToggleButtonShowClean)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanelStatusbarLayout.createSequentialGroup()
+                .addGap(2, 2, 2)
                 .addComponent(jLabelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jTextFieldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+            .addComponent(jTextFieldPassword)
         );
 
         getContentPane().add(jPanelStatusbar, java.awt.BorderLayout.PAGE_END);
@@ -1068,13 +1134,19 @@ public class Main extends javax.swing.JFrame {
     
     private void setStatus(Element element) {
         if (element.getNodeName().equals("account")) {
-            this.jTextFieldPassword.setForeground(Color.GREEN);
             this.jTextFieldPassword.setBackground(Color.GREEN);
+            if (this.jToggleButtonShowClean.isSelected())
+                this.jTextFieldPassword.setForeground(Color.BLACK);
+            else
+                this.jTextFieldPassword.setForeground(Color.GREEN);
+                
             this.jTextFieldPassword.setText(element.getAttribute("password"));
+            this.jButtonPasswordCopy.setEnabled(true);
         } else {
             this.jTextFieldPassword.setForeground(Color.GRAY);
             this.jTextFieldPassword.setBackground(Color.GRAY);
             this.jTextFieldPassword.setText("");
+            this.jButtonPasswordCopy.setEnabled(false);
         }
         this.jLabelStatus.setText(element.getNodeName().toUpperCase() + " - " + element.getAttribute("name"));
     }
@@ -1263,10 +1335,25 @@ public class Main extends javax.swing.JFrame {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode)this.jTreeMain.getLastSelectedPathComponent(); 
         Element element = (Element)selectedNode.getUserObject();
         if (element.getNodeName().equals("folder") || element.getNodeName().equals("root")) {
+            this.jButtonTBAddFolder.setEnabled(true);
+            this.jButtonTBAddAccount.setEnabled(true);
             this.jLabelTableHead.setText(element.getAttribute("name") + " - accounts");
             NodeList list = element.getElementsByTagName("account");
             tableModel = new AccountTableModel(toListOfElement(list));
             this.setTableModel(tableModel);
+        } else {
+
+            if (element.getNodeName().equals("account")) {
+                ArrayList alist = new ArrayList();
+                alist.add(element);
+                tableModel = new AccountTableModel(alist);
+                this.setTableModel(tableModel);
+            }
+
+
+            this.jButtonTBAddFolder.setEnabled(false);
+            this.jButtonTBAddAccount.setEnabled(false);
+
         }
 
         setStatus(element);
@@ -1414,6 +1501,35 @@ public class Main extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         exit();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButtonTBAddFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBAddFolderActionPerformed
+
+        addFolder();
+        
+        
+    }//GEN-LAST:event_jButtonTBAddFolderActionPerformed
+
+    private void jButtonTBAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTBAddAccountActionPerformed
+        addAccount();
+    }//GEN-LAST:event_jButtonTBAddAccountActionPerformed
+
+    private void jButtonPasswordCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPasswordCopyActionPerformed
+        StringSelection selection = new StringSelection(this.jTextFieldPassword.getText());
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, selection);            
+        
+
+    }//GEN-LAST:event_jButtonPasswordCopyActionPerformed
+
+    private void jToggleButtonShowCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonShowCleanActionPerformed
+        if (this.jToggleButtonShowClean.isSelected()) {
+            this.jTextFieldPassword.setForeground(Color.BLACK);
+        } else {
+            this.jTextFieldPassword.setForeground(Color.GREEN);
+            
+        }
+
+    }//GEN-LAST:event_jToggleButtonShowCleanActionPerformed
 
     
     private void copy() {
@@ -1581,6 +1697,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JButton jButtonPasswordCopy;
+    private javax.swing.JButton jButtonTBAddAccount;
+    private javax.swing.JButton jButtonTBAddFolder;
     private javax.swing.JButton jButtonTBCopy;
     private javax.swing.JButton jButtonTBCut;
     private javax.swing.JButton jButtonTBDelete;
@@ -1615,6 +1734,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTable jTableAccount;
     private javax.swing.JTextField jTextFieldPassword;
     private javax.swing.JTextField jTextFieldSearch;
+    private javax.swing.JToggleButton jToggleButtonShowClean;
     private javax.swing.JToolBar jToolBarEdit;
     private javax.swing.JToolBar jToolBarFile;
     private javax.swing.JToolBar jToolBarMain;

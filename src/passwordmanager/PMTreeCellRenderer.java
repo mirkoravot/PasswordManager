@@ -5,6 +5,7 @@
  */
 package passwordmanager;
 
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
